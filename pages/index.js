@@ -30,6 +30,19 @@ export default function Home() {
     });
   };
 
+  const connectWallet = () => {
+    const { ethereum } = window;
+    if (!ethereum) alert('Get Metamask!');
+
+    ethereum
+      .request({ method: 'eth_requestAccounts' })
+      .then((accounts) => {
+        console.log('Connected: ', accounts[0]);
+        setCurrAccount(accounts[0]);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     checkIfWalletIsConnected();
   });
@@ -42,7 +55,16 @@ export default function Home() {
       </Head>
       <Layout>
         <Header />
-        <InputActions />
+        {currAccount ? (
+          <InputActions />
+        ) : (
+          <button
+            className='inline-flex justify-center mt-10 px-10 py-1.5 border border-transparent text-base font-semibold rounded shadow-sm text-white text-center tracking-wider bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2'
+            onClick={connectWallet}
+          >
+            Connect Wallet
+          </button>
+        )}
       </Layout>
     </>
   );
