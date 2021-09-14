@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { Layout } from "../components/layout";
 import { Header } from "../components/header";
+import { InputActions } from "../components/inputAction";
+
 export default function Home() {
   return (
     <>
@@ -11,11 +13,7 @@ export default function Home() {
       </Head>
       <Layout>
         <Header />
-        <input
-          type="text"
-          placeholder="What's Your Favorite Pokemon?"
-          className="w-1/2 text-center mt-12 border-2 border-black rounded-lg"
-        />
+        <InputActions />
       </Layout>
     </>
   );
