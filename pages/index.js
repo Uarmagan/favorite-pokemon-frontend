@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Layout } from '../components/layout';
 import { Header } from '../components/header';
 import { InputActions } from '../components/inputAction';
-import { ethers } from 'ethers';
+
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -43,9 +43,12 @@ export default function Home() {
       .catch((err) => console.log(err));
   };
 
+  
+
   useEffect(() => {
     checkIfWalletIsConnected();
   });
+
   return (
     <>
       <Head>
