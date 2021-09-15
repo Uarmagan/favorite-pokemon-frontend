@@ -2,9 +2,9 @@ import Image from 'next/image';
 import pokemonLogo from '../public/pokemon-logo.png';
 export const Header = () => {
   return (
-    <div className='flex flex-col items-center min-w-full mt-8 space-y-4'>
-      <h1 className='font-semi-bold tracking-wide text-3xl'>
-        Name Your Favorite
+    <div className='flex flex-col items-center min-w-full space-y-4'>
+      <h1 className='tracking-wide text-3xl lg:text-4xl font-pokemon'>
+        Choose Your Favorite
       </h1>
       <div className='block w-2/4'>
         <Image
