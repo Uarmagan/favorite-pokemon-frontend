@@ -2,50 +2,10 @@ import Head from 'next/head';
 import { Layout } from '../components/layout';
 import { Header } from '../components/header';
 import { InputActions } from '../components/inputAction';
-
-import { useEffect, useState } from 'react';
+import { useWallet } from '../context/walletContext';
 
 export default function Home() {
-  const [currAccount, setCurrAccount] = useState('');
-
-  const checkIfWalletIsConnected = () => {
-    const { ethereum } = window;
-    if (!ethereum) {
-      console.log('make sure to have metamask');
-      return;
-    } else {
-      console.log('we have the ethereum object', ethereum);
-    }
-
-    // check if we're authorized to access the user's wallet
-    ethereum.request({ method: 'eth_accounts' }).then((accounts) => {
-      if (accounts.length !== 0) {
-        // grab the first account we have access to
-        const account = accounts[0];
-        console.log('Found an authorized account: ', account);
-        setCurrAccount(account);
-      } else {
-        console.log('no authorized account found');
-      }
-    });
-  };
-
-  const connectWallet = () => {
-    const { ethereum } = window;
-    if (!ethereum) alert('Get Metamask!');
-
-    ethereum
-      .request({ method: 'eth_requestAccounts' })
-      .then((accounts) => {
-        console.log('Connected: ', accounts[0]);
-        setCurrAccount(accounts[0]);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  });
+  const [currAccount, connectWallet] = useWallet();
 
   return (
     <div className='bg-gray-900 text-white h-screen flex flex-col justify-center'>

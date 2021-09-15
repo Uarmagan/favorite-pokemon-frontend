@@ -31,7 +31,7 @@ export const InputActions = () => {
         type='text'
         name='pokemon'
         placeholder='Choose Your Favorite Pokemon?'
-        className='text-center shadow-sm pt-0.5 mt-12 border-2 border-black rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-md border-gray-300 rounded-lg'
+        className='text-center text-black shadow-sm pt-0.5 mt-12 border-2 border-black rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-md border-gray-300 rounded-lg'
       />
       <button
         type='button'
