@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 import abi from '../utils/pokemonPortal.json';
 
 export const InputActions = () => {
+
   const getPokemon = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();

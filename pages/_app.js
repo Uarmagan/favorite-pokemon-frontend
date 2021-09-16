@@ -1,4 +1,4 @@
-import { WalletProvider } from '../context/walletContext';
+import { WalletProvider } from '../hooks/walletContext';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
