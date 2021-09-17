@@ -8,7 +8,6 @@ export function usePokemon() {
   const getAllPokemon = async () => {
     const pokemonPortalContract = await pokemonPortalSetup();
     const pokemonRes = await pokemonPortalContract.getAllPokemon();
-    console.log(pokemonRes);
     const pokemon = pokemonRes.map((_pokemon) => ({
       address: _pokemon.user,
       timestamp: new Date(_pokemon.timestamp * 1000),
@@ -44,7 +43,7 @@ export function usePokemon() {
 const pokemonPortalSetup = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const contractAddress = '0x65Ca13BE7aa40Bd63CD9e4e0AA75f134eD812Ea1';
+  const contractAddress = '0x8420c3AFE9C2d368a5012311e929EF76bE070D84';
   const contractABI = abi.abi;
   return new ethers.Contract(contractAddress, contractABI, signer);
 };
