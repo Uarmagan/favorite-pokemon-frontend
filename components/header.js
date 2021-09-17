@@ -6,7 +6,7 @@ export const Header = () => {
       <h1 className='tracking-wide text-3xl lg:text-4xl font-pokemon'>
         Choose Your Favorite
       </h1>
-      <div className='block w-2/4'>
+      <div className='block w-2/5 max-w-lg'>
         <Image
           src={pokemonLogo}
           alt='Picture of the author'
