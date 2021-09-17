@@ -19,23 +19,21 @@ export function usePokemon() {
 
   const addPokemon = async (message) => {
     const pokemonPortalContract = await pokemonPortalSetup();
-    let count = await pokemonPortalContract.getTotalPokemon();
-    console.log('Total pokemon count is: ', count.toNumber());
-
     const pokemonTxn = await pokemonPortalContract.addPokemon(message);
     console.log('Mining....', pokemonTxn.hash);
     await pokemonTxn.wait();
     console.log('Mined -- ', pokemonTxn.hash);
 
-    count = await pokemonPortalContract.getTotalPokemon();
-    console.log('Total pokemon count is: ', count.toNumber());
+    const updatedPokemon = await pokemonPortalContract.getAllPokemon();
+    console.log(updatedPokemon);
+    setAllPokemon(updatedPokemon);
   };
 
   useEffect(() => {
     (async () => {
       getAllPokemon();
     })();
-  }, []);
+  }, [addPokemon]);
 
   return { allPokemon, getAllPokemon, addPokemon };
 }
