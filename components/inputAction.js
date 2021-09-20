@@ -1,7 +1,9 @@
 import { usePokemon } from '../hooks/usePokemon';
 import { useState } from 'react';
+import Loader from 'react-loader-spinner';
+
 export const InputActions = () => {
-  const { addPokemon } = usePokemon();
+  const { addPokemon, isLoading } = usePokemon();
   const [pokemonInput, setpokemonInput] = useState('');
   const [inputError, setInputError] = useState(false);
 
@@ -15,7 +17,7 @@ export const InputActions = () => {
   };
 
   return (
-    <div className='flex flex-col w-1/2 space-y-3'>
+    <div className='flex flex-col w-1/2 lg:w-1/3 space-y-3'>
       <input
         type='text'
         name='pokemon'
@@ -30,7 +32,19 @@ export const InputActions = () => {
         className='inline-flex justify-center px-3 py-1.5 border border-transparent text-base font-semibold rounded shadow-sm text-white text-center tracking-wider bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2'
       >
         Put Them On The Blockchain
+        <span className='ml-3'>
+          {isLoading && (
+            <Loader
+              type='ThreeDots'
+              color='#FACA04'
+              height={20}
+              width={50}
+              timeout={3000}
+            />
+          )}
+        </span>
       </button>
+
       {inputError ? (
         <div className='text-red-500'>You forgot to add a Pokmon!</div>
       ) : null}
