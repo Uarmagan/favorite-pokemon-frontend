@@ -5,6 +5,8 @@ import abi from '../utils/pokemonPortal.json';
 export function usePokemon() {
   const [allPokemon, setAllPokemon] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const getAllPokemon = async () => {
     const pokemonPortalContract = await pokemonPortalSetup();
     const pokemonRes = await pokemonPortalContract.getAllPokemon();
@@ -19,16 +21,22 @@ export function usePokemon() {
 
   const addPokemon = useCallback(
     async (message) => {
-      setIsLoading(true);
-      const pokemonPortalContract = await pokemonPortalSetup();
-      const pokemonTxn = await pokemonPortalContract.addPokemon(message);
-      console.log('Mining....', pokemonTxn.hash);
-      await pokemonTxn.wait();
-      console.log('Mined -- ', pokemonTxn.hash);
+      try {
+        setIsError(false);
+        setIsLoading(true);
+        const pokemonPortalContract = await pokemonPortalSetup();
+        const pokemonTxn = await pokemonPortalContract.addPokemon(message);
+        console.log('Mining....', pokemonTxn.hash);
+        await pokemonTxn.wait();
+        console.log('Mined -- ', pokemonTxn.hash);
 
-      const updatedPokemon = await pokemonPortalContract.getAllPokemon();
-      setAllPokemon(updatedPokemon);
-      setIsLoading(false);
+        const updatedPokemon = await pokemonPortalContract.getAllPokemon();
+        setAllPokemon(updatedPokemon);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setIsError(true);
+      }
     },
     [setAllPokemon]
   );
@@ -40,13 +48,13 @@ export function usePokemon() {
     fetchAllPokemon();
   }, [allPokemon]);
 
-  return { isLoading, allPokemon, addPokemon };
+  return { isLoading, isError, allPokemon, addPokemon };
 }
 
 const pokemonPortalSetup = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const contractAddress = '0xD2B82738F5fd50f675Bb156Fd3b045C08B9C0ec1';
+  const contractAddress = '0xDC0a20EC4C4854b31688f4d94D9aa95F482e7080';
   const contractABI = abi.abi;
   return new ethers.Contract(contractAddress, contractABI, signer);
 };

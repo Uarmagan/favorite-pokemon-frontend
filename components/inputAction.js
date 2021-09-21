@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Loader from 'react-loader-spinner';
 
 export const InputActions = () => {
-  const { addPokemon, isLoading } = usePokemon();
+  const { addPokemon, isLoading, isError: isContractError } = usePokemon();
   const [pokemonInput, setpokemonInput] = useState('');
   const [inputError, setInputError] = useState(false);
 
@@ -31,7 +31,7 @@ export const InputActions = () => {
         onClick={handleClick}
         className='inline-flex justify-center px-3 py-1.5 border border-transparent text-base font-semibold rounded shadow-sm text-white text-center tracking-wider bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2'
       >
-        Put Them On The Blockchain
+        <span>Put Them On The Blockchain</span>
         <span className='ml-3'>
           {isLoading && (
             <Loader
@@ -47,6 +47,11 @@ export const InputActions = () => {
 
       {inputError ? (
         <div className='text-red-500'>You forgot to add a Pokmon!</div>
+      ) : null}
+      {isContractError ? (
+        <div className='text-red-500'>
+          Need to wait 30 seconds before addding another pokemon
+        </div>
       ) : null}
     </div>
   );
