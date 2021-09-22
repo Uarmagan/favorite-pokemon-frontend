@@ -37,6 +37,28 @@ export const InputActions = () => {
     }
   };
 
+  const handleOnKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      setPokemonInput(suggestions[activeSuggestionIndex]);
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+    if (e.keyCode === 38) {
+      if (activeSuggestionIndex === 0) {
+        return;
+      } else {
+        setActiveSuggestionIndex(activeSuggestionIndex - 1);
+      }
+    }
+    if (e.keyCode === 40) {
+      if (activeSuggestionIndex === suggestions.length - 1) {
+        return;
+      } else {
+        setActiveSuggestionIndex(activeSuggestionIndex + 1);
+      }
+    }
+  };
+
   const onClickSuggestion = (e) => {
     setSuggestions([]);
     setPokemonInput(e.target.innerText);
@@ -50,6 +72,7 @@ export const InputActions = () => {
         name='pokemon'
         value={pokemonInput}
         onChange={handleInputChange}
+        onKeyDown={handleOnKeyDown}
         placeholder='Choose Your Favorite Pokemon?'
         className={`text-center text-black shadow-sm p-1 mb-0 mt-12 border-2 border-black ${
           showSuggestions ? 'rounded-t-lg rounded-b-none' : 'rounded-t-lg'
@@ -98,7 +121,7 @@ const SuggestionsList = ({ onClick, suggestions, activeSuggestionIndex }) => {
         return (
           <li
             className={`text-black  hover:bg-gray-200 ${
-              index === activeSuggestionIndex ? 'border-t-0' : 'border-t-2'
+              index === activeSuggestionIndex ? 'bg-gray-200' : 'bg-white'
             }`}
             key={suggestion}
             onClick={onClick}
