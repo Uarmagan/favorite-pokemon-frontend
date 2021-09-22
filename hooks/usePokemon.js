@@ -25,7 +25,9 @@ export function usePokemon() {
         setIsError(false);
         setIsLoading(true);
         const pokemonPortalContract = await pokemonPortalSetup();
-        const pokemonTxn = await pokemonPortalContract.addPokemon(message);
+        const pokemonTxn = await pokemonPortalContract.addPokemon(message, {
+          gasLimit: 300000,
+        });
         console.log('Mining....', pokemonTxn.hash);
         await pokemonTxn.wait();
         console.log('Mined -- ', pokemonTxn.hash);
