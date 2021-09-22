@@ -56,7 +56,7 @@ export function usePokemon() {
 const pokemonPortalSetup = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const contractAddress = '0xDC0a20EC4C4854b31688f4d94D9aa95F482e7080';
+  const contractAddress = '0x117a761A592FD47092E85E78714be553bC824A58';
   const contractABI = abi.abi;
   return new ethers.Contract(contractAddress, contractABI, signer);
 };
